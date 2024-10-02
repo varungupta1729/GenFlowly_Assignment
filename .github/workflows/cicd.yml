@@ -1,10 +1,9 @@
-name: Varun Gupta Project
 
+name: Deploy to GitHub Pages
 
-on:push:
-    branches: [ main ]
-
-
+on: 
+  push:
+    branches: main
 
 permissions:
   contents: read  
