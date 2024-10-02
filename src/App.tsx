@@ -57,7 +57,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto mt-8 mb-10 w-full flex flex-col justify-center items-center">
+    <div className="max-w-2xl mx-auto mt-8 mb-10 w-full flex flex-col justify-center items-center">
       <Post post={post} addPostComment={addPostComment} />
 
       <div className="mt-6 w-full ">
