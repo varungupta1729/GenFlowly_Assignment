@@ -1,46 +1,51 @@
-# Getting Started with Create React App
+# Reddit Comments Thread UI - React Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Project Overview
 
-## Available Scripts
+This project replicates a Reddit-style comments thread UI using React. The app contains a post at the top, followed by comments and replies. It implements dynamic expanding and collapsing of replies with accessibility compliance. The project is deployed using GitHub Pages and utilizes GitHub Actions for continuous deployment.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. **Post Section**:
+   - Displays a post with an image and title.
+   - Users can comment on the post.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+2. **Comments Section**:
+   - Comments on the post are listed.
+   - Each comment can have replies (1 level of nesting).
+   - Replies can be expanded or collapsed dynamically.
 
-### `npm test`
+3. **Functionality**:
+   - Add new comments to the post.
+   - Reply to comments dynamically.
+   - Accessibility features are integrated.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## Non-functional Requirements
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Accessibility (a11y)**: The UI is designed to be accessible to all users.
+- **Deployment**: The app is deployed live on GitHub Pages.
+- **Continuous Deployment**: GitHub Actions is used for automatic deployment.
+- **Unit Testing**: The code is covered with unit tests to ensure functionality.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Tech Stack
 
-### `npm run eject`
+- **React**: For building the user interface.
+- **TypeScript**: For type safety and better code management.
+- **Tailwind CSS**: For styling the components.
+- **GitHub Actions**: For CI/CD (Continuous Integration/Continuous Deployment).
+- **GitHub Pages**: For live deployment of the app.
+- **Jest**: For unit testing.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+---
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Installation and Setup
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/varungupta1729/GenFlowly_Assignment.git
