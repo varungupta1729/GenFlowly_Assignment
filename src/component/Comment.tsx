@@ -130,7 +130,7 @@ const Comment: React.FC<CommentProps> = ({ comment, addReply }) => {
            
           {!showChildComment && showChild && comment.replies.length > 1 ? (
             <div
-              className="relative mt-2 -bottom-9 left-5 flex items-center gap-2 text-gray-600 cursor-pointer"
+              className="relative mt-2 -bottom-9 left-1 flex items-center gap-2 text-gray-600 cursor-pointer"
               onClick={() => setShowChildComment(!showChildComment)}
             >
               <FiPlusCircle size={20} /> {comment.replies.length - 1} more replies
@@ -138,7 +138,7 @@ const Comment: React.FC<CommentProps> = ({ comment, addReply }) => {
           ) : (
             comment.replies.length > 0 && (
               <div
-                className="relative mt-2 -bottom-9 left-5 flex items-center gap-2 text-gray-600"
+                className="relative mt-2 -bottom-9 left-1 flex items-center gap-2 text-gray-600"
                 onClick={toggleReplies}
               >
                 {showChildComment && comment.replies.length === 1 ? (
