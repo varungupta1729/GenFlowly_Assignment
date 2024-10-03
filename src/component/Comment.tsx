@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import { CommentType } from "../utils/types";
 import { timeAgo } from "../utils/utils"; // Import the utility to format timestamp
-import { PiShareFatLight } from "react-icons/pi";
-import { LiaAwardSolid } from "react-icons/lia";
-import { FaRegCommentAlt } from "react-icons/fa";
-import { PiArrowFatDownThin } from "react-icons/pi";
-import { PiArrowFatUpThin } from "react-icons/pi";
 import { FiPlusCircle } from "react-icons/fi";
 import { FiMinusCircle } from "react-icons/fi";
-import { SlOptions } from "react-icons/sl";
+import CommentBoxBtn from "./CommentBoxBtn";
+
 interface CommentProps {
   comment: CommentType;
   addReply: (parentId: number, content: string) => void;
@@ -18,22 +14,42 @@ const Comment: React.FC<CommentProps> = ({ comment, addReply }) => {
   const [showReplyBox, setShowReplyBox] = useState(false);
   const [replyContent, setReplyContent] = useState("");
   const [showChild, setShowChild] = useState(true);
+  const [showChildComment, setShowChildComment] = useState(false);
 
   const handleReply = () => {
     if (replyContent.trim()) {
       addReply(comment.id, replyContent);
       setReplyContent("");
       setShowReplyBox(false);
+      if(comment.replies.length > 0) {
+        setShowChild(true);
+        setShowChildComment(true)}
+      
+;    }
+  };
+
+  const toggleReplies = () => {
+    if (comment.replies.length > 1) {
+      if(!showChild) setShowChild(true);
+      setShowChildComment(!showChildComment);
+    } else {
+      setShowChild(!showChild);
+      setShowChildComment(!showChildComment);
     }
   };
 
+  const handleLeftToggle = () =>{
+    setShowChild(!showChild);
+    setShowChildComment(!showChildComment);
+  }
+
   return (
     <div
-      className={`ml-6 mt-3  ${
-        comment.replies.length > 0 ? " border-l-2" : ""
-      }  border-gray-300 hover:border-black p-4 pb-6 rounded-3xl`}
+      className={`ml-6 mt-10  ${
+        comment.replies.length > 0 ? "border-l-2" : ""
+      } border-gray-300 hover:border-black p-4 pb-6 rounded-3xl border-bottom bg-white text-[0.9rem]`}
     >
-      <div className="-mt-6">
+      <div className="-mt-9 bg-white">
         <div className="flex justify-between items-center">
           <div className="flex items-center -ml-9">
             <img
@@ -54,43 +70,16 @@ const Comment: React.FC<CommentProps> = ({ comment, addReply }) => {
 
         <div className="flex gap-4 text-black -ml-6">
           <button
-            className="mt-2  rounded-full flex justify-center items-center bg-white "
-            onClick={() => setShowChild(!showChild)}
+            className="mt-2  rounded-full flex justify-center items-center bg-white"
+            onClick={handleLeftToggle}
           >
             {!showChild
               ? comment.replies.length > 0 && <FiPlusCircle size={20} />
               : comment.replies.length > 0 && <FiMinusCircle size={20} />}
           </button>
 
-          <button className="mt-2 flex justify-center items-center gap-2   ">
-            <PiArrowFatUpThin
-              size={37}
-              className=" hover:bg-[#DEE2E5] rounded-full px-2 py-1 hover:text-[#D93C04]"
-            />
-            {comment.upvotes}
-          </button>
+          <CommentBoxBtn comment={comment} showReplyBox={showReplyBox} setShowReplyBox={setShowReplyBox} />
 
-          <button className="mt-2 flex justify-center items-center gap-2  hover:bg-[#DEE2E5] rounded-full px-2 py-1 hover:text-[#6D5FFE]">
-            <PiArrowFatDownThin size={20} />
-          </button>
-
-          <button
-            onClick={() => setShowReplyBox(!showReplyBox)}
-            className="mt-2   flex justify-center items-center gap-2 hover:bg-[#DEE2E5] rounded-full px-3 py-1 "
-          >
-            <FaRegCommentAlt size={20} />
-            Reply
-          </button>
-          <button className="mt-2 flex justify-center items-center gap-2  hover:bg-[#DEE2E5] rounded-full px-3 py-1">
-            <LiaAwardSolid size={25} />
-            Award
-          </button>
-          <button className="mt-2  flex justify-center items-center gap-2 hover:bg-[#DEE2E5] rounded-full px-3 py-1 ">
-            <PiShareFatLight size={25} /> Share
-          </button>
-          <button className="mt-2  flex justify-center items-center gap-2 hover:bg-[#DEE2E5] rounded-full px-4 py-1 ">
-            <SlOptions />
-          </button>
         </div>
 
         {showReplyBox && (
@@ -103,28 +92,67 @@ const Comment: React.FC<CommentProps> = ({ comment, addReply }) => {
             <div className="flex justify-end gap-3">
               <button
                 onClick={() => setShowReplyBox(!showReplyBox)}
-                className="mt-2 text-black bg-[#DEE2E5] hover:bg-[#bfc2c4]  py-1 px-3 rounded-full"
+                className="mt-2 text-black bg-[#DEE2E5] hover:bg-[#bfc2c4] py-1 px-3 rounded-full"
               >
                 Cancel
               </button>
               <button
                 onClick={handleReply}
-                className="mt-2 bg-[#3B4E15] rounded-full text-white py-1 px-3  hover:bg-[#2a370f]"
+                className="mt-2 bg-[#3B4E15] rounded-full text-white py-1 px-3 hover:bg-[#2a370f]"
               >
                 Comment
               </button>
             </div>
           </div>
         )}
-        {comment.replies.length > 0 && showChild && (
-          <div className=" border-b-2 hover:border-black border-slate-400 w-full h-16 -ml-4 rounded-2xl "></div>
-        )}
 
         <div className="-mt-7 bg-white">
-          {showChild &&
-            comment.replies.map((reply) => (
-              <Comment key={reply.id} comment={reply} addReply={addReply} />
+          {!showChildComment &&
+            showChild &&
+            comment.replies.slice(0, 1).map((reply) => (
+              <>
+                {comment.replies.length > 0 && showChild && (
+                  <div className="border-b-2 hover:border-black border-slate-400 w-full h-10 -mb-10 mt-7 -ml-4 rounded-full"></div>
+                )}
+                <Comment key={reply.id} comment={reply} addReply={addReply} />
+              </>
             ))}
+          {showChildComment &&
+            showChild &&
+            comment.replies.map((reply) => (
+              <>
+                {comment.replies.length > 0 && showChild && (
+                  <div className="border-b-2 hover:border-black border-slate-400 w-full h-16 -mb-10 mt-7 -ml-4 rounded-full"></div>
+                )}
+                <Comment key={reply.id} comment={reply} addReply={addReply} />
+              </>
+            ))}
+           
+          {!showChildComment && showChild && comment.replies.length > 1 ? (
+            <div
+              className="relative mt-2 -bottom-9 left-5 flex items-center gap-2 text-gray-600"
+              onClick={() => setShowChildComment(!showChildComment)}
+            >
+              <FiPlusCircle size={20} /> {comment.replies.length - 1} more replies
+            </div>
+          ) : (
+            comment.replies.length > 0 && (
+              <div
+                className="relative mt-2 -bottom-9 left-5 flex items-center gap-2 text-gray-600"
+                onClick={toggleReplies}
+              >
+                {showChildComment && comment.replies.length === 1 ? (
+                  <span className="flex items-center gap-2">
+                    <FiPlusCircle size={20} /> 1 more reply
+                  </span>
+                ) : (
+                  <span className="flex items-center gap-2">
+                   {showChild? <span  className="flex items-center gap-2"> <FiMinusCircle size={20} /> See less</span>  :<span  className="flex items-center gap-2">  <FiPlusCircle size={20} />{ comment.replies.length  } more replies</span> }
+                  </span>
+                )}
+              </div>
+            )
+          )}
         </div>
       </div>
     </div>
