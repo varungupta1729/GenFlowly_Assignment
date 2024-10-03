@@ -18,7 +18,7 @@ const CommentBoxBtn: React.FC<CommentBoxBtnProps> = ({ comment, setShowReplyBox,
       <button className="mt-2 flex justify-center items-center gap-2">
         <PiArrowFatUpThin
           size={37}
-          className="hover:bg-[#DEE2E5] rounded-full px-2 py-1 hover:text-[#D93C04]"
+          className="hover:bg-[#DEE2E5] rounded-full px-2 py-1 hover:text-[#D93C04] ml-2"
         />
         {comment.upvotes}
       </button>

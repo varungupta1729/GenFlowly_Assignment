@@ -68,7 +68,7 @@ const Comment: React.FC<CommentProps> = ({ comment, addReply }) => {
 
         <div className="mt-2">{comment.commentContent}</div>
 
-        <div className="flex gap-4 text-black -ml-6">
+        <div className="flex gap-2 text-black -ml-6">
           <button
             className="mt-2  rounded-full flex justify-center items-center bg-white"
             onClick={handleLeftToggle}
@@ -83,7 +83,7 @@ const Comment: React.FC<CommentProps> = ({ comment, addReply }) => {
         </div>
 
         {showReplyBox && (
-          <div className="mt-3 border hover:border-black border-gray-400 p-3 rounded-3xl">
+          <div className="mt-3 border hover:border-black border-gray-400 p-3 rounded-3xl relative">
             <textarea
               value={replyContent}
               onChange={(e) => setReplyContent(e.target.value)}
@@ -112,7 +112,7 @@ const Comment: React.FC<CommentProps> = ({ comment, addReply }) => {
             comment.replies.slice(0, 1).map((reply) => (
               <>
                 {comment.replies.length > 0 && showChild && (
-                  <div className="border-b-2 hover:border-black border-slate-400 w-full h-10 -mb-10 mt-7 -ml-4 rounded-full"></div>
+                  <div className="border-b-2 hover:border-black border-slate-400 w-full h-10 -mb-10 mt-3 -ml-4 rounded-full"></div>
                 )}
                 <Comment key={reply.id} comment={reply} addReply={addReply} />
               </>
@@ -122,7 +122,7 @@ const Comment: React.FC<CommentProps> = ({ comment, addReply }) => {
             comment.replies.map((reply) => (
               <>
                 {comment.replies.length > 0 && showChild && (
-                  <div className="border-b-2 hover:border-black border-slate-400 w-full h-16 -mb-10 mt-7 -ml-4 rounded-full"></div>
+                  <div className="border-b-2 hover:border-black border-slate-400 w-full h-16 -mb-10 mt-3  -ml-4 rounded-full"></div>
                 )}
                 <Comment key={reply.id} comment={reply} addReply={addReply} />
               </>
