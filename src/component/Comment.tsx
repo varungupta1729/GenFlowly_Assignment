@@ -83,7 +83,7 @@ const Comment: React.FC<CommentProps> = ({ comment, addReply }) => {
         </div>
 
         {showReplyBox && (
-          <div className="mt-3 border hover:border-black border-gray-400 p-3 rounded-3xl relative">
+          <div className="mt-3 border hover:border-black border-gray-400 p-3 rounded-3xl relative Z-20">
             <textarea
               value={replyContent}
               onChange={(e) => setReplyContent(e.target.value)}
