@@ -13,7 +13,7 @@ interface CommentProps {
 const Comment: React.FC<CommentProps> = ({ comment, addReply }) => {
   const [showReplyBox, setShowReplyBox] = useState(false);
   const [replyContent, setReplyContent] = useState("");
-  const [showChild, setShowChild] = useState(true);
+  const [showChild, setShowChild] = useState( !(comment.id > 200) );
   const [showChildComment, setShowChildComment] = useState(false);
 
   const handleReply = () => {
@@ -30,7 +30,7 @@ const Comment: React.FC<CommentProps> = ({ comment, addReply }) => {
 
   const toggleReplies = () => {
     if (comment.replies.length > 1) {
-      if(!showChild) setShowChild(true);
+      if(!showChild){ setShowChild(true);}
       setShowChildComment(!showChildComment);
     } else {
       setShowChild(!showChild);
@@ -66,16 +66,16 @@ const Comment: React.FC<CommentProps> = ({ comment, addReply }) => {
           </div>
         </div>
 
-        <div className="mt-2">{comment.commentContent}</div>
+        <div className="mt-2 ml-4">{comment.commentContent}</div>
 
         <div className="flex gap-2 text-black -ml-6">
           <button
             className="mt-2  rounded-full flex justify-center items-center bg-white"
             onClick={handleLeftToggle}
           >
-            {!showChild
-              ? comment.replies.length > 1 && <FiPlusCircle size={20} />
-              : comment.replies.length > 1 && <FiMinusCircle size={20} />}
+            {!showChild 
+              ? comment.replies.length > 1 && !(comment.id>200) && <FiPlusCircle size={20} />
+              :  <FiMinusCircle size={20} />}
           </button>
 
           <CommentBoxBtn comment={comment} showReplyBox={showReplyBox} setShowReplyBox={setShowReplyBox} />
@@ -141,7 +141,7 @@ const Comment: React.FC<CommentProps> = ({ comment, addReply }) => {
                 className="relative mt-2 -bottom-9 left-1 flex items-center gap-2 text-gray-600"
                 onClick={toggleReplies}
               >
-                {showChildComment && comment.replies.length === 1 ? (
+                {showChildComment && comment.replies.length === 1 && !(comment.id >2) ? (
                   <span className="flex items-center gap-2 cursor-pointer">
                     <FiPlusCircle size={20} /> 1 more reply
                   </span>

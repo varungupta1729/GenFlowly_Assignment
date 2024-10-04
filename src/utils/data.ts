@@ -21,7 +21,17 @@ export const initialPost: PostType = {
           timestamp: new Date().getTime() - 1800 * 1000,
           commentContent: "This is a reply to Alice's comment",
           upvotes: 4,
-          replies: [],
+          replies: [
+            {
+              id: 304,
+              username: "Zara",
+              userImage: "https://randomuser.me/api/portraits/women/4.jpg",
+              timestamp: new Date().getTime() - 300 * 1000, // 5 minutes ago
+              commentContent: "This is a nested reply to Carol's reply",
+              upvotes: 0,
+              replies: [],
+            },
+          ],
         },
         {
           id: 202,
@@ -68,15 +78,6 @@ export const initialPost: PostType = {
               upvotes: 0,
               replies: [],
             },
-            {
-              id: 304,
-              username: "Zara",
-              userImage: "https://randomuser.me/api/portraits/women/4.jpg",
-              timestamp: new Date().getTime() - 300 * 1000, // 5 minutes ago
-              commentContent: "This is a nested reply to Carol's reply",
-              upvotes: 0,
-              replies: [],
-            },
           ],
         },
         {
@@ -89,15 +90,6 @@ export const initialPost: PostType = {
           replies: [],
         },
       ],
-    },
-    {
-      id: 202,
-      username: "Emily",
-      userImage: "https://randomuser.me/api/portraits/women/2.jpg",
-      timestamp: new Date().getTime() - 1200 * 1000,
-      commentContent: "This is a third comment",
-      upvotes: 2,
-      replies: [],
     },
   ],
 };
