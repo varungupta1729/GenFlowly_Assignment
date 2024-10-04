@@ -23,7 +23,7 @@ export const initialPost: PostType = {
           upvotes: 4,
           replies: [
             {
-              id: 304,
+              id: 301,
               username: "Zara",
               userImage: "https://randomuser.me/api/portraits/women/4.jpg",
               timestamp: new Date().getTime() - 300 * 1000, // 5 minutes ago
