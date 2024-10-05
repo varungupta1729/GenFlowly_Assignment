@@ -21,11 +21,11 @@ const Comment: React.FC<CommentProps> = ({ comment, addReply }) => {
       addReply(comment.id, replyContent);
       setReplyContent("");
       setShowReplyBox(false);
-      if(comment.replies.length > 0) {
+      // if(comment.replies.length > 0) {
         setShowChild(true);
         setShowChildComment(true)}
       
-;    }
+// ;    }
   };
 
   const toggleReplies = () => {

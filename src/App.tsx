@@ -11,8 +11,8 @@ const App: React.FC = () => {
   const addPostComment = (content: string) => {
     const newComment: CommentType = {
       id: Date.now(),
-      username: "User" + Date.now(),
-      userImage: "https://randomuser.me/api/portraits/lego/1.jpg",
+      username: "User_" + Date.now(),
+      userImage: "https://randomuser.me/api/portraits/women/" + + Math.floor(Math.random() * 10 ) % 20 +".jpg",
       commentContent: content,
       timestamp: new Date().getTime(),
       upvotes: 0,
@@ -24,34 +24,40 @@ const App: React.FC = () => {
 
   const addReply = (parentId: number, content: string) => {
     let parentComment: CommentType | null = null;
-
+   
+    // Here Sir we recusrsively find out the node in the tree where we have to attach this node 
     const addReplyRecursive = (comments: CommentType[]): CommentType[] => {
       return comments.map((comment) => {
-        if (comment.id === parentId) {
+        if (comment.id === parentId) {   //Here Sir we get the node
+
+          //Here sir we are creating the node object with the comment content
           parentComment = {
             ...comment,
             replies: [
-              ...comment.replies,
+             
               {
                 id: Date.now(),
-                username: "User" + Date.now(),
-                userImage: "https://randomuser.me/api/portraits/lego/1.jpg",
+                username: "User_" + Date.now(),
+                userImage: "https://randomuser.me/api/portraits/men/" + Math.floor(Math.random() * 10 ) % 20 + ".jpg",
                 commentContent: content,
                 timestamp: new Date().getTime(),
                 upvotes: 0,
                 replies: [],
               },
+              ...comment.replies,
             ],
           };
           return parentComment;
         }
+
+        // if node is not finded then recursively call to other nodes
         return {
           ...comment,
           replies: addReplyRecursive(comment.replies),
         };
       });
     };
-
+    // Here sir we set the updated content of the post
     const updatedComments = addReplyRecursive(post.comments);
     setPost({ ...post, comments: updatedComments });
   };

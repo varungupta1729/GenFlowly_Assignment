@@ -19,6 +19,7 @@ const Post: React.FC<PostProps> = ({ post, addPostComment }) => {
     if (postCommentContent.trim()) {
       addPostComment(postCommentContent);
       setPostCommentContent("");
+      setShowReplyBox(false);
     }
   };
 
