@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { CommentType } from "../utils/types";
-import { timeAgo } from "../utils/utils"; 
+import { timeAgo } from "../utils/utils";
 import { FiPlusCircle } from "react-icons/fi";
 import { FiMinusCircle } from "react-icons/fi";
 import CommentBoxBtn from "./CommentBoxBtn";
@@ -13,7 +13,7 @@ interface CommentProps {
 const Comment: React.FC<CommentProps> = ({ comment, addReply }) => {
   const [showReplyBox, setShowReplyBox] = useState(false);
   const [replyContent, setReplyContent] = useState("");
-  const [showChild, setShowChild] = useState( !(comment.id > 200) );
+  const [showChild, setShowChild] = useState(!(comment.id > 200));
   const [showChildComment, setShowChildComment] = useState(false);
 
   const handleReply = () => {
@@ -21,16 +21,17 @@ const Comment: React.FC<CommentProps> = ({ comment, addReply }) => {
       addReply(comment.id, replyContent);
       setReplyContent("");
       setShowReplyBox(false);
-      // if(comment.replies.length > 0) {
-        setShowChild(true);
-        setShowChildComment(true)}
-      
-// ;    }
+
+      setShowChild(true);
+      setShowChildComment(true);
+    }
   };
 
   const toggleReplies = () => {
     if (comment.replies.length > 1) {
-      if(!showChild){ setShowChild(true);}
+      if (!showChild) {
+        setShowChild(true);
+      }
       setShowChildComment(!showChildComment);
     } else {
       setShowChild(!showChild);
@@ -38,10 +39,10 @@ const Comment: React.FC<CommentProps> = ({ comment, addReply }) => {
     }
   };
 
-  const handleLeftToggle = () =>{
+  const handleLeftToggle = () => {
     setShowChild(!showChild);
     setShowChildComment(!showChildComment);
-  }
+  };
 
   return (
     <div
@@ -73,13 +74,19 @@ const Comment: React.FC<CommentProps> = ({ comment, addReply }) => {
             className="mt-2  rounded-full flex justify-center items-center bg-white"
             onClick={handleLeftToggle}
           >
-            {!showChild 
-              ? comment.replies.length > 1 && !(comment.id>200) && <FiPlusCircle size={20} />
-              :  <FiMinusCircle size={20} />}
+            {!showChild ? (
+              comment.replies.length > 1 &&
+              !(comment.id > 200) && <FiPlusCircle size={20} />
+            ) : (
+              <FiMinusCircle size={20} />
+            )}
           </button>
 
-          <CommentBoxBtn comment={comment} showReplyBox={showReplyBox} setShowReplyBox={setShowReplyBox} />
-
+          <CommentBoxBtn
+            comment={comment}
+            showReplyBox={showReplyBox}
+            setShowReplyBox={setShowReplyBox}
+          />
         </div>
 
         {showReplyBox && (
@@ -127,13 +134,14 @@ const Comment: React.FC<CommentProps> = ({ comment, addReply }) => {
                 <Comment key={reply.id} comment={reply} addReply={addReply} />
               </>
             ))}
-           
+
           {!showChildComment && showChild && comment.replies.length > 1 ? (
             <div
               className="relative mt-2 -bottom-9 left-1 flex items-center gap-2 text-gray-600 cursor-pointer"
               onClick={() => setShowChildComment(!showChildComment)}
             >
-              <FiPlusCircle size={20} /> {comment.replies.length - 1} more replies
+              <FiPlusCircle size={20} /> {comment.replies.length - 1} more
+              replies
             </div>
           ) : (
             comment.replies.length > 0 && (
@@ -141,13 +149,26 @@ const Comment: React.FC<CommentProps> = ({ comment, addReply }) => {
                 className="relative mt-2 -bottom-9 left-1 flex items-center gap-2 text-gray-600"
                 onClick={toggleReplies}
               >
-                {showChildComment && comment.replies.length === 1 && !(comment.id >2) ? (
+                {showChildComment &&
+                comment.replies.length === 1 &&
+                !(comment.id > 2) ? (
                   <span className="flex items-center gap-2 cursor-pointer">
                     <FiPlusCircle size={20} /> 1 more reply
                   </span>
                 ) : (
                   <span className="flex items-center gap-2">
-                   {showChild? <span  className="flex items-center gap-2 cursor-pointer"> <FiMinusCircle size={20} /> See less</span>  :<span  className="flex items-center gap-2 cursor-pointer">  <FiPlusCircle size={20} />{ comment.replies.length  } more replies</span> }
+                    {showChild ? (
+                      <span className="flex items-center gap-2 cursor-pointer">
+                        {" "}
+                        <FiMinusCircle size={20} /> See less
+                      </span>
+                    ) : (
+                      <span className="flex items-center gap-2 cursor-pointer">
+                        {" "}
+                        <FiPlusCircle size={20} />
+                        {comment.replies.length} more replies
+                      </span>
+                    )}
                   </span>
                 )}
               </div>
