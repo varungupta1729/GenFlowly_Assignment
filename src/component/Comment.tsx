@@ -75,7 +75,7 @@ const Comment: React.FC<CommentProps> = ({ comment, addReply }) => {
             onClick={handleLeftToggle}
           >
             {!showChild ? (
-              comment.replies.length > 1 &&
+              comment.replies.length > 1 && 
               !(comment.id > 200) && <FiPlusCircle size={20} />
             ) : (
               <FiMinusCircle size={20} />
